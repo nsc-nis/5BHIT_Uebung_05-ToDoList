@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Create />
+    <Create :create="createItem" />
   </div>
 </template>
 
@@ -11,11 +11,11 @@ import Create from "./Create.vue";
 export default {
   components: { Create },
   setup() {
-    let data = ref(
+    let data = ref([
       { name: "Eating" },
       { name: "Drinking" },
       { name: "Sleeping" }
-    );
+    ]);
 
     function createItem(item) {
       console.log("Create item: " + item);

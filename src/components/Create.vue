@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent="doCreate">
     <input type="text" v-model="item" placeholder="Add ToDo Item" />
     <button>Create</button>
   </form>
@@ -9,9 +9,17 @@
 import { ref } from "vue";
 
 export default {
-  setup() {
+  props: {
+    create: { type: Function, required: true }
+  },
+  setup(props) {
     let item = ref("");
-    return { item };
+
+    function doCreate() {
+      console.log("Create..." + item.value);
+      props.create(item.value);
+    }
+    return { item, doCreate };
   }
 };
 </script>
