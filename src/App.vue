@@ -1,13 +1,16 @@
 <template>
   <div id="app">
     <h1>ToDo List</h1>
+    <Container />
   </div>
 </template>
 
 <script>
+import Container from "./components/Container.vue";
+
 export default {
   name: "App",
-  components: {}
+  components: { Container }
 };
 </script>
 
