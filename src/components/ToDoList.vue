@@ -7,7 +7,9 @@
         :value="item.name"
         v-model="checkedItems"
       />
-      {{ item.name }}
+      <span :class="{ done: checkedItems.includes(item.name) }">{{
+        item.name
+      }}</span>
 
       <span class="delete" @click="deleteItem(index)">X</span>
     </li>
@@ -59,5 +61,9 @@ ul li :hover {
   line-height: 1;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
 }
 </style>
