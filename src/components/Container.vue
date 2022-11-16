@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Create :create="createItem" />
-    <ToDoList :toDoList="data" />
+    <ToDoList :toDoList="data" :deleteItem="deleteItem"/>
   </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
 
     function deleteItem(id) {
       console.log("Delete " + id);
+      data.value.splice(id, 1)
     }
     return { data, createItem, deleteItem };
   }
