@@ -1,7 +1,10 @@
 <template>
+  <h1>ToDo List</h1>
   <form @submit.prevent="doCreate">
-    <input type="text" v-model="item" placeholder="Add ToDo Item" />
-    <button>Create</button>
+    <div class="create">
+      <input type="text" v-model="item" placeholder="Add ToDo Item" />
+      <button>Create</button>
+    </div>
   </form>
 </template>
 
@@ -24,4 +27,23 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+input[type='text'] {
+  padding: 5px;
+  margin-right: 15px;
+  color: #5c5c5c;
+  border: 1px solid #dcdce6;
+  border-radius: 8px;
+}
+
+.create {
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+</style>

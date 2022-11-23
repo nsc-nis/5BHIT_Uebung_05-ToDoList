@@ -4,20 +4,32 @@
       <input
         type="checkbox"
         :id="item.name"
-        :value="item.name"
+        :value="index"
         v-model="checkedItems"
       />
-      <span :class="{ done: checkedItems.includes(item.name) }">{{
+      <span :class="{ done: checkedItems.includes(index) }">{{
         item.name
       }}</span>
 
       <span class="delete" @click="deleteItem(index)">X</span>
     </li>
   </ul>
+  <div class="taskInfo">
+    <span class="tasksLeft">{{ doneTasks }} task(s) left</span>
+    <span
+      v-if="checkedItems.length > 0"
+      @click="deleteChecked"
+      class="doneTasks"
+    >
+      <a href="#">Clear {{ checkedItems.length }} completed task(s)</a>
+    </span>
+  </div>
 </template>
 
 <script>
 import { ref } from 'vue';
+import { computed } from 'vue';
+
 export default {
   props: {
     deleteItem: {
@@ -29,9 +41,21 @@ export default {
       require: true,
     },
   },
-  setup() {
+  setup(props) {
     const checkedItems = ref([]);
-    return { checkedItems };
+
+    const doneTasks = computed(() => {
+      return props.toDoList.length - checkedItems.value.length;
+    });
+
+    function deleteChecked() {
+      checkedItems.value.forEach((item) => {
+        props.deleteItem(item);
+      });
+      checkedItems.value = [];
+    }
+
+    return { checkedItems, doneTasks, deleteChecked };
   },
 };
 </script>
@@ -39,31 +63,59 @@ export default {
 <style scoped>
 ul {
   list-style: none;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  font-style: italic;
 }
-
 ul li {
-  margin: 5px;
-  cursor: pointer;
+  margin-bottom: 10px;
+  color: #5c5c5c;
+  display: flex;
+  margin: 5px 0;
+  justify-content: space-between;
+  align-content: center;
 }
-
 ul li :hover {
   opacity: 0.4;
 }
-
 .delete {
   background-color: red;
   color: white;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  /*padding: 10 0 10px;*/
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0 10px;
   line-height: 1;
   border-radius: 5px;
   cursor: pointer;
 }
+.hideDelete {
+  opacity: 0;
+}
 
 .done {
   text-decoration: line-through;
+}
+.taskInfo {
+  margin-top: 15px;
+  font-size: 14px;
+  display: flex;
+  margin-left: auto;
+  color: #335c62;
+  justify-self: space-between;
+}
+.doneTasks {
+  position: absolute;
+  left: 20px;
+}
+input[type='checkbox'] {
+  width: 20px;
+  background: #555;
+  border-radius: 5px;
+}
+
+.tasksLeft {
+  text-align: right;
 }
 </style>
