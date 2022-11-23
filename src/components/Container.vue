@@ -33,4 +33,22 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+input {
+  font-size: 20px;
+  border-radius: 5px;
+}
+button {
+  border-radius: 5px;
+  font-size: 20px;
+  background-color: aquamarine;
+}
+</style>
